@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { useNotes } from './hooks/useNotes';
+import Sidebar from './components/Sidebar';
+import MobileTabBar from './components/MobileTabBar';
+import EditorArea from './components/EditorArea';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { notes, activeNoteId, activeNote, createNote, updateNote, deleteNote, selectNote } = useNotes();
+  const [mobileTab, setMobileTab] = useState('edit');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <Sidebar
+        notes={notes}
+        activeNoteId={activeNoteId}
+        onSelect={selectNote}
+        onCreate={createNote}
+        onDelete={deleteNote}
+      />
+      <div className="app__main">
+        <MobileTabBar mobileTab={mobileTab} onTabChange={setMobileTab} />
+        <EditorArea
+          activeNote={activeNote}
+          mobileTab={mobileTab}
+          onTitleChange={val => updateNote({ title: val })}
+          onContentChange={val => updateNote({ content: val })}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

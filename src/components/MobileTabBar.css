@@ -1,0 +1,29 @@
+.mobile-tab-bar {
+  display: none;
+  border-bottom: 1px solid #e0e4ea;
+}
+
+.mobile-tab-bar__tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #8492a6;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.mobile-tab-bar__tab--active {
+  color: #6e72e8;
+  border-bottom-color: #6e72e8;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .mobile-tab-bar {
+    display: flex;
+  }
+}
